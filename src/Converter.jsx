@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios';
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1
   },
@@ -37,21 +37,23 @@ const Converter = (props) => {
       sign: 'S$'
     }
   ];
-  const rates = [
-    {
-      name: 'USD',
-      value: null
-    },
-    {
-      name: 'EUR',
-      value: null
-    },
-    {
-      name: 'SGD',
-      value: null
-    }
-  ];
-  console.log();
+
+  const rates = useMemo(() => {
+    return [
+      {
+        name: 'USD',
+        value: null
+      },
+      {
+        name: 'EUR',
+        value: null
+      },
+      {
+        name: 'SGD',
+        value: null
+      }
+    ];
+  }, []);
   useEffect(() => {
     if (rates.some((r) => r.value === null)) {
       axios
@@ -77,12 +79,7 @@ const Converter = (props) => {
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
             <h2> Currency converter </h2>
-            <TextField
-              value={amount}
-              id="standard-basic"
-              label="SEK"
-              inputType="number"
-            />
+            <TextField value={amount} id="standard-basic" label="SEK" />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>

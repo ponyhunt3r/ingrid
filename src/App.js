@@ -11,6 +11,7 @@ function App() {
     <Router>
       <Nav />
       <div>
+        <Route path="/" exact component={Converter} />
         <Route path="/converter" component={Converter} />
         <Route path="/history" component={History} />
       </div>
