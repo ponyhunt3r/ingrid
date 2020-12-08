@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1
@@ -37,10 +37,28 @@ const Converter = (props) => {
       sign: 'S$'
     }
   ];
+  const rates = [
+    {
+      name: 'USD',
+      value: null
+    },
+    {
+      name: 'EUR',
+      value: null
+    },
+    {
+      name: 'SGD',
+      value: null
+    }
+  ];
   const [currency, setCurrency] = React.useState('EUR');
+  const [calculatedValue, setCalculatedValue] = React.useState(0);
   const [value, setValue] = React.useState(200);
-  const handleChange = (event) => {
-    setCurrency(event.target.value);
+  const handleChange = ({ target: { value } }) => {
+    setCurrency(value);
+    axios.get(`https://api.exchangeratesapi.io/latest?base=SEK`).then((res) => {
+      setCalculatedValue(200 * res.data.rates[value]);
+    });
   };
   return (
     <Container maxWidth="md">
@@ -65,7 +83,6 @@ const Converter = (props) => {
               label="Select"
               value={currency}
               onChange={handleChange}
-              helperText="Please select your currency"
             >
               {currencies.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -79,6 +96,7 @@ const Converter = (props) => {
                 id="standard-basic"
                 label={currencies.find((cur) => cur.value === currency)?.sign}
                 inputType="number"
+                value={calculatedValue}
               />
             </div>
           </Paper>
