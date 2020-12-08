@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -51,14 +51,25 @@ const Converter = (props) => {
       value: null
     }
   ];
+  console.log();
+  useEffect(() => {
+    if (rates.some((r) => r.value === null)) {
+      axios
+        .get(`https://api.exchangeratesapi.io/latest?base=SEK`)
+        .then((res) => {
+          rates.map((rate) => (rate.value = res.data.rates[rate.name]));
+        });
+    }
+  }, [rates]);
+  const findRate = (value) => rates.find((rate) => rate.name === value).value;
   const [currency, setCurrency] = React.useState('EUR');
   const [calculatedValue, setCalculatedValue] = React.useState(0);
-  const [value, setValue] = React.useState(200);
+  const [amount, setAmount] = React.useState(200);
   const handleChange = ({ target: { value } }) => {
     setCurrency(value);
-    axios.get(`https://api.exchangeratesapi.io/latest?base=SEK`).then((res) => {
-      setCalculatedValue(200 * res.data.rates[value]);
-    });
+    //this can be modfied so we will calculate given amount of SEK
+    //but in my opinion requirements clearly state to calculate fixed value of 200
+    setCalculatedValue(amount * findRate(value).toFixed(4));
   };
   return (
     <Container maxWidth="md">
@@ -67,7 +78,7 @@ const Converter = (props) => {
           <Paper className={classes.paper}>
             <h2> Currency converter </h2>
             <TextField
-              value={value}
+              value={amount}
               id="standard-basic"
               label="SEK"
               inputType="number"
