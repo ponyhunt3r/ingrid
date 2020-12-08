@@ -17,26 +17,26 @@ export const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary
   }
 }));
+export const currencies = [
+  {
+    value: 'USD',
+    label: 'USD',
+    sign: '$'
+  },
+  {
+    value: 'EUR',
+    label: 'EUR',
+    sign: '€'
+  },
+  {
+    value: 'SGD',
+    label: 'SGD',
+    sign: 'S$'
+  }
+];
 
 const Converter = (props) => {
   const classes = useStyles();
-  const currencies = [
-    {
-      value: 'USD',
-      label: 'USD',
-      sign: '$'
-    },
-    {
-      value: 'EUR',
-      label: 'EUR',
-      sign: '€'
-    },
-    {
-      value: 'SGD',
-      label: 'SGD',
-      sign: 'S$'
-    }
-  ];
 
   const rates = useMemo(() => {
     return [
