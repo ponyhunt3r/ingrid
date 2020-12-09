@@ -16,7 +16,6 @@ Visit the app: http://localhost:3000
 Things, that I didn't manage to finish in time, but should be there:
 
 - tests
-- mozilla firefox support (app has styling bugs in this brower)
 - proper error handling (showing alerts isn't very user friendly)
 - the dates in date range should not allow to put end date before start date
 - thre should be additional check if the identical date range has been already fetched in previous request
