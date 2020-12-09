@@ -15,9 +15,9 @@ Visit the app: http://localhost:3000
 
 Things, that I didn't manage to finish in time, but should be there:
 
-- tests
-- proper error handling (showing alerts isn't very user friendly)
-- the dates in date range should not allow to put end date before start date
-- thre should be additional check if the identical date range has been already fetched in previous request
-- proper state managment, so components could be easily divided into smaller parts without passing the props
-- app is usable on mobile, but could look prettier
+- Tests
+- Proper error handling (showing alerts isn't very user-friendly)
+- The dates in date range should not allow the end date be earlier than start date
+- There should be additional check if the identical date range has been already fetched in previous request
+- Proper state managment, so components could be easily divided into smaller parts without passing the props
+- App is usable on mobile, but could look prettier
