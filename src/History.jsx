@@ -132,7 +132,7 @@ const History = ({ props }) => {
             <TextField
               id="standard-select-currency"
               select
-              label="Select"
+              label="Currency"
               value={currency}
               onChange={handleCurrencyChange}
             >
