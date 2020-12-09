@@ -24,18 +24,28 @@ export const useStyles = makeStyles((theme) => ({
 
 const History = ({ props }) => {
   const classes = useStyles();
-  const [startDate, setStartDate] = React.useState('2015-03-26');
-  const [endDate, setEndDate] = React.useState('2017-06-13');
+
+  //get values from local storage
+  const localStartDate = localStorage.getItem('startDate');
+  const localEndDate = localStorage.getItem('endDate');
+  const localValue = localStorage.getItem('difference');
+  const localCurrency = localStorage.getItem('currency');
+
+  //set initial state with local storage values if available
+  const [startDate, setStartDate] = React.useState(
+    localStartDate || '2015-03-26'
+  );
+  const [endDate, setEndDate] = React.useState(localEndDate || '2017-06-13');
+  const [calculatedValue, setCalculatedValue] = React.useState(localValue || 0);
+  const [currency, setCurrency] = React.useState(localCurrency || 'EUR');
 
   const [startRate, setStartRate] = React.useState(0);
   const [endRate, setEndRate] = React.useState(0);
 
-  const [calculatedValue, setCalculatedValue] = React.useState(0);
-  const [currency, setCurrency] = React.useState('EUR');
   const handleChange = ({ target: { value } }) => {
     setCurrency(value);
+    localStorage.setItem('currency', value);
   };
-  console.log('loci', localStorage);
   const clickHandler = async () => {
     try {
       const startRates = await axios.get(
@@ -46,13 +56,12 @@ const History = ({ props }) => {
         `https://api.exchangeratesapi.io/${endDate}?base=SEK`
       );
       const endRate = endRates.data.rates[currency];
-      const difference =
+      const ratio =
         startRate > endRate ? endRate / startRate : startRates / endRate;
-      setCalculatedValue(
-        `${startRate > endRate ? '-' : ''} ${(100 - difference * 100).toFixed(
-          2
-        )} %`
-      );
+      const difference = (100 - ratio * 100).toFixed(2);
+      const value = `${startRate > endRate ? '-' : ''} ${difference} %`;
+      setCalculatedValue(value);
+      localStorage.setItem('difference', value);
     } catch (error) {
       alert(error);
     }

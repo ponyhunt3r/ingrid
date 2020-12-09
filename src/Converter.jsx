@@ -39,34 +39,41 @@ const Converter = (props) => {
   const classes = useStyles();
 
   const rates = useMemo(() => {
-    return [
-      {
-        name: 'USD',
-        value: null
-      },
-      {
-        name: 'EUR',
-        value: null
-      },
-      {
-        name: 'SGD',
-        value: null
-      }
-    ];
+    return (
+      JSON.parse(localStorage.getItem('rates')) || [
+        {
+          name: 'USD',
+          value: null
+        },
+        {
+          name: 'EUR',
+          value: null
+        },
+        {
+          name: 'SGD',
+          value: null
+        }
+      ]
+    );
   }, []);
   useEffect(() => {
-    if (rates.some((r) => r.value === null)) {
+    console.log('rar', rates, localStorage.getItem('rates'));
+    if (rates?.some((r) => r.value === null)) {
       axios
         .get(`https://api.exchangeratesapi.io/latest?base=SEK`)
         .then((res) => {
           rates.map((rate) => (rate.value = res.data.rates[rate.name]));
+          localStorage.setItem('rates', JSON.stringify(rates));
         });
     }
   }, [rates]);
+  const [amount, setAmount] = React.useState(200);
   const findRate = (value) => rates.find((rate) => rate.name === value).value;
   const [currency, setCurrency] = React.useState('EUR');
-  const [calculatedValue, setCalculatedValue] = React.useState(0);
-  const [amount, setAmount] = React.useState(200);
+  const [calculatedValue, setCalculatedValue] = React.useState(
+    amount * findRate(currency)?.toFixed(4) || 0
+  );
+
   const handleChange = ({ target: { value } }) => {
     setCurrency(value);
     //this can be modfied so we will calculate given amount of SEK
