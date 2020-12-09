@@ -2,11 +2,15 @@
   "name": "ingrid",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "verbose": true
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
+    "jest": "^26.6.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useLocation } from 'react-router-dom';
 
 const Nav = (props) => {
-  const routes = ['converter', 'history'];
-  const [value, setValue] = React.useState(0);
+  const routes = ['/converter', '/history'];
+  const defaultPath = useLocation().pathname === routes[1] ? 1 : 0;
+  const [value, setValue] = React.useState(defaultPath);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
