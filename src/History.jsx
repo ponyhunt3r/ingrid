@@ -158,15 +158,18 @@ const History = ({ props }) => {
               </div>
               <h3>Value changed by:</h3>
               <div>
-                <TextField
-                  readOnly
-                  id="start"
-                  label={startDate}
-                  value={startRate}
-                  className={classes.textField}
-                />
-                <TextField readOnly id="end" label={endDate} value={endRate} />
+                <span className={classes.textField}>{startDate}</span>
+                <span>{endDate}</span>
               </div>
+              <TextField
+                readOnly
+                id="start"
+                value={startRate}
+                className={classes.textField}
+              />
+
+              <TextField readOnly id="end" value={endRate} />
+
               <h3 className={resultClass}>{calculatedValue}</h3>
             </div>
           </Paper>
