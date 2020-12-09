@@ -24,9 +24,9 @@ export const currencies = [
     sign: '$'
   },
   {
-    value: 'EUR',
-    label: 'EUR',
-    sign: '€'
+    value: 'GBP',
+    label: 'GBP',
+    sign: '£'
   },
   {
     value: 'SGD',
@@ -45,7 +45,7 @@ const Converter = (props) => {
           value: null
         },
         {
-          name: 'EUR',
+          name: 'GBP',
           value: null
         },
         {
@@ -78,7 +78,7 @@ const Converter = (props) => {
 
   //set initial state, take local storage values if available
   const [amount, setAmount] = React.useState(localAmount || 200);
-  const [currency, setCurrency] = React.useState(localCurrency || 'EUR');
+  const [currency, setCurrency] = React.useState(localCurrency || 'GBP');
   const [calculatedValue, setCalculatedValue] = React.useState(
     (amount * findRate(currency))?.toFixed(2) || 0
   );

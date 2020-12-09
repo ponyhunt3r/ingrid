@@ -49,7 +49,7 @@ const History = ({ props }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [endDate, setEndDate] = React.useState(localEndDate || '2017-06-13');
   const [calculatedValue, setCalculatedValue] = React.useState(localValue || 0);
-  const [currency, setCurrency] = React.useState(localCurrency || 'EUR');
+  const [currency, setCurrency] = React.useState(localCurrency || 'GBP');
   const [startRate, setStartRate] = React.useState(localStartRate, 0);
   const [endRate, setEndRate] = React.useState(localEndRate, 0);
 
